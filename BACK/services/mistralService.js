@@ -87,6 +87,7 @@ IMPORTANT: Réponds UNIQUEMENT avec un objet JSON valide (pas de markdown, pas d
                     content: prompt
                 }
             ],
+            responseFormat: { type: 'json_object' },
             temperature: 0.3,
             maxTokens: 2000
         });
@@ -97,10 +98,20 @@ IMPORTANT: Réponds UNIQUEMENT avec un objet JSON valide (pas de markdown, pas d
         let analysisResult;
         try {
             // Remove markdown code blocks if present
-            const cleanContent = content.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
+            let cleanContent = content.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
+
+            // Try to find the JSON object if there's extra text
+            const firstBrace = cleanContent.indexOf('{');
+            const lastBrace = cleanContent.lastIndexOf('}');
+
+            if (firstBrace !== -1 && lastBrace !== -1 && lastBrace > firstBrace) {
+                cleanContent = cleanContent.substring(firstBrace, lastBrace + 1);
+            }
+
             analysisResult = JSON.parse(cleanContent);
         } catch (parseError) {
-            console.error('Failed to parse Mistral response:', content);
+            console.error('Failed to parse Mistral response. Raw content:', content);
+            console.error('Parse error:', parseError);
             throw new Error('Invalid response format from AI');
         }
 
