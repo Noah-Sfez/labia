@@ -1,0 +1,26 @@
+@import "tailwindcss";
+
+@theme {
+  --color-raspberry-50: #FAEBF4;
+  --color-raspberry-100: #F5D6E8;
+  --color-raspberry-200: #EBADD1;
+  --color-raspberry-300: #E085BA;
+  --color-raspberry-400: #D65CA3;
+  --color-raspberry-500: #CC338C;
+  --color-raspberry-600: #A32970;
+  --color-raspberry-700: #7A1F54;
+  --color-raspberry-800: #521438;
+  --color-raspberry-900: #290A1C;
+  --color-raspberry-950: #1D0714;
+}
+
+/* *{
+  background-color: white;
+}
+
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+} */
